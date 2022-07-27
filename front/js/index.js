@@ -7,9 +7,7 @@ fetch('http://localhost:3000/api/products')
    .then(async function (recup)
 //    .then(data) =>
      {
-// let image =document.createElement("img");
-// img.src = data.imageUrl;
-
+ 
     catalogCanape = await recup;
     console.log(recup);
     allCatalogCanape(catalogCanape)
@@ -19,20 +17,21 @@ function allCatalogCanape(listCanap) {
   listCanap.forEach((canape) => {
   
   let lien = document.createElement ("a");
-  
+  lien.href="./product.html?id="+canape._id;
+
   let article = document.createElement ("article");
    let image = document.createElement ("img");
-//  img.src=canape."imageUrl";
-//img.alt=canape.altTxt;
+  image.src=canape.imageUrl;
+  image.alt=canape.altTxt;
   let nom = document.createElement ("h3");
     nom.textContent=canape.name;
     nom.className = "productName";
  
-//  //   let descript = document.createElement("productDescription")
-//   let descript = document.createElement ("p");
-//    descript.textContent=canape.description;
-//      descript.className = "productDescription";
-// console.log(descript);//
+  
+  let descript = document.createElement ("p");
+   descript.textContent=canape.description;
+     descript.className = "productDescription";
+console.log(descript); 
 
 
 
@@ -40,7 +39,7 @@ function allCatalogCanape(listCanap) {
     lien.appendChild (article);
     article.appendChild (image);
     article.appendChild(nom);
-//  article.appenChild(p);
+    article.appendChild(descript);
   });  
 } 
 
@@ -54,3 +53,4 @@ function allCatalogCanape(listCanap) {
  
  
  
+    
