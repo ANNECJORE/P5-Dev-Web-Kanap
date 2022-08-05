@@ -9,26 +9,17 @@ const nom = document.querySelector("#title");
 const descript = document.getElementById("description");
 // const zoneimage = document.querySelector(".item__img");
 const zoneimage = document.createElement("img");
-
+const photo = document.querySelector(".item__img");
+const qte = document.querySelector("#quantity");
 
 fetch("http://localhost:3000/api/products/" + productId)
   .then((response) => response.json())
   .then(async function (produit) {
     nom.innerText = produit.name;
-    console.log(pro duit.name);
-    // zoneimage.innerHTML =
-    // <img src="${produit.imageUrl}" alt= image de meuble "${produit.altTxt}" />
-    // )
-    // // produit.item__img.forEach();
- 
-    let photo = document.getElementsByClassName("item__img");
+
     photo.appendChild(zoneimage);
     zoneimage.src = produit.imageUrl;
-    // photo.appendChild(zoneimage);
     zoneimage.alt = produit.altTxt;
-    // zonetext.appendChild(zoneimage);
-    console.log(produit.imageUrl);
-    console.log(produit.altTxt);
 
     prix.innerHTML = produit.price;
     descript.innerHTML = produit.description;
@@ -38,14 +29,33 @@ fetch("http://localhost:3000/api/products/" + productId)
       option.text = color;
       couleur.appendChild(option);
     });
-    console.log(produit.colors);
   });
 
 // panier
-let couleur = localStorage.getItem("colors");
+console.log(localStorage);
+let choixPanier = JSON.parse(localStorage.getItem("selection"));
+
+if (!choixPanier) {
+  //  localStorage.setItem("selection", []);
+  choixPanier = [];
+}
 
 // récuperer élément du formulaire
-const envoyer= document.getElementsById("addToCart")
-document.querySelector("#addToCart").addEventListener("click", (e) => {
-  e.preventDedault();
+const envoyer = document.getElementById("addToCart");
+envoyer.addEventListener("click", (e) => {
+  let couleurSelec = couleur.value;
+  let quantite = qte.value;
+  let produitPanier = {
+    couleur: couleurSelec,
+    id: productId,
+    quantite: quantite,
+  };
+
+  choixPanier.push(produitPanier);
+  console.log(produitPanier);
+  console.log(choixPanier);
+
+  localStorage.setItem("selection", JSON.stringify(choixPanier));
 });
+
+//
