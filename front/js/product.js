@@ -32,16 +32,21 @@ fetch("http://localhost:3000/api/products/" + productId)
   });
 
 // panier
+//--- on transforme le produit en JSON pour que le localstorage le comprenne --
 console.log(localStorage);
 let choixPanier = JSON.parse(localStorage.getItem("selection"));
 
 if (!choixPanier) {
   //  localStorage.setItem("selection", []);
+
   choixPanier = [];
+  choixPanier.push(productId);
+  localStorage.setItem("selection", JSON.stringify(choixPanier));
 }
 
-// récuperer élément du formulaire
 const envoyer = document.getElementById("addToCart");
+const fusionProduitAjout = Object;
+
 envoyer.addEventListener("click", (e) => {
   let couleurSelec = couleur.value;
   let quantite = qte.value;
@@ -52,10 +57,26 @@ envoyer.addEventListener("click", (e) => {
   };
 
   choixPanier.push(produitPanier);
-  console.log(produitPanier);
-  console.log(choixPanier);
+
+  // console.log(produitPanier);
+  // retournez le panier dans le langage JSCRIPT
 
   localStorage.setItem("selection", JSON.stringify(choixPanier));
+  
+ 
+ 
 });
+ //fonction fenetre pop up
+ const sent =() =>{
+  if window.confirm ('Consulter le panier'));
+  {
+window.location.href="cart.html";}
+else { 
+window.location.href = "index.html";
+}
 
-//
+ 
+ 
+ 
+ 
+
