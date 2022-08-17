@@ -2,8 +2,9 @@ const items = document.querySelector(".items");
 
 fetch("http://localhost:3000/api/products")
   .then((response) => response.json())
-  .then(async function (recup) //    .then(data) =>
-  {
+  .then(async function (
+    recup //    .then(data) =>
+  ) {
     catalogCanape = await recup;
     console.log(recup);
     allCatalogCanape(catalogCanape);

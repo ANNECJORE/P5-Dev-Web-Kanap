@@ -34,49 +34,42 @@ fetch("http://localhost:3000/api/products/" + productId)
 // panier
 //--- on transforme le produit en JSON pour que le localstorage le comprenne --
 console.log(localStorage);
-let choixPanier = JSON.parse(localStorage.getItem("selection"));
-
-if (!choixPanier) {
-  //  localStorage.setItem("selection", []);
-
-  choixPanier = [];
-  choixPanier.push(productId);
-  localStorage.setItem("selection", JSON.stringify(choixPanier));
-}
 
 const envoyer = document.getElementById("addToCart");
-const fusionProduitAjout = Object;
 
 envoyer.addEventListener("click", (e) => {
   let couleurSelec = couleur.value;
   let quantite = qte.value;
-  let produitPanier = {
-    couleur: couleurSelec,
-    id: productId,
-    quantite: quantite,
-  };
 
-  choixPanier.push(produitPanier);
+  if (couleurSelec && quantite > 0 && quantite < 101) {
+    // permet de recupérer panier
+    let choixPanier = JSON.parse(localStorage.getItem("selection"));
+    let doublon;
+    if (!choixPanier) {
+      choixPanier = [];
 
-  // console.log(produitPanier);
-  // retournez le panier dans le langage JSCRIPT
+      localStorage.setItem("selection", JSON.stringify(choixPanier));
+    } else {
+      doublon = choixPanier.find(
+        (element) =>
+          element.id === productId && element.couleur === couleurSelec
+      );
+    }
+    if (doublon) {
+      doublon.quantite = parseInt(quantite) + parseInt(doublon.quantite);
+    } else {
+      let produitPanier = {
+        couleur: couleurSelec,
+        id: productId,
+        quantite: quantite,
+      };
+      choixPanier.push(produitPanier);
+    }
 
-  localStorage.setItem("selection", JSON.stringify(choixPanier));
-  
- 
- 
+    localStorage.setItem("selection", JSON.stringify(choixPanier));
+
+    alert("produit ajouté au panier");
+  } else {
+    alert("attention quantité ou couleur non sélectionnée");
+  }
 });
- //fonction fenetre pop up
- const sent =() =>{
-  if window.confirm ('Consulter le panier'));
-  {
-window.location.href="cart.html";}
-else { 
-window.location.href = "index.html";
-}
-
- 
- 
- 
- 
-
