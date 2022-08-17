@@ -1,11 +1,30 @@
 // const contenu = document.getElementbyId("cart__item");
-function contenuPanier() {
-  let choixPanier = [];
-  if (localStorage.getItem("selection") !== 0) {
-    choixPanier = JSON.parse(localStorage.getItem("selection"));
-    console.log(choixPanier);
-  }
-  // alert("coucou");
+fetch("http://localhost:3000/api/products")
+  .then((response) => response.json())
+  .then(async function (recup) {
+    catalogCanape = await recup;
+    console.log(recup);
+    allCatalogCanape(catalogCanape);
+  });
+
+// function contenuPanier() {
+//   let choixPanier = [];
+//   if (localStorage.getItem("selection")  === 0) {
+//     alert('votre panier est vide');
+
+//     if choixPanier = JSON.parse(localStorage.getItem("selection"));
+
+//     console.log(choixPanier);
+//   }
+//   // alert("coucou");
+// }
+
+let contenuPanier = JSON.parse(localStorage.getItem("selection"));
+//panier vide
+if ((contenuPanier == 0, (contenuPanier.length = 0))) {
+  document.querySelector("h1").innerHTML += "votre panier est vide";
+} else {
+  document.querySelector("h1").innerHTML += "votre panier";
 }
 
 function articleEssai(produit) {
@@ -56,7 +75,7 @@ combienCanape.classList.add("cart__item__content__settings__quantity");
 const totalChoix = document.creatElement("p");
 totalChoix.textContent = "Qté : ";
 combienCanape.appendChild(totalChoix);
-const nbCanape = document.getElementById("totalQuantity");
+
 nbCanape.textContent = produit.combienCanape;
 
 const input = document.createElement("input");
@@ -77,4 +96,18 @@ const oter = document.createElement("p");
 oter.textContent = "supprimer";
 retirer.appendChild("oter");
 
-function retirerPanier() {}
+// function panierRempli(produit) {
+//   const nbCanape = document.getElementById("totalQuantity");
+
+//   const panierVide = produit[0];
+//   const panierPlein = panierVide.combienCanape * panierVide.price;
+// }
+function panierRempli(produit) {
+  let total = 0;
+  const factureTotal = document.getElementById("totalPrice");
+  cart.forEach((produit) => {
+    const prixTotal = produit.price * produit.combienCanape;
+    prixTotal += total;
+    factureTotal.textContent = prixTotal;
+  });
+}
