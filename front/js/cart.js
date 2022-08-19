@@ -26,7 +26,7 @@ if ((contenuPanier == 0, (contenuPanier.length = 0))) {
 } else {
   document.querySelector("h1").innerHTML += "votre panier";
 }
-
+// récuperer article
 function articleEssai(produit) {
   const article = document.creatElement("article");
   article.classList.add("cart__item");
@@ -35,8 +35,9 @@ function articleEssai(produit) {
   article.appendChild("cart__item");
   return article;
 }
+
 document.getElementsByClassName("cart__items").appendChild(article);
-// let descript = document.creatElement("p");
+
 //créer l'image
 function imageEssai(choixPanier) {
   const div = document.creatElement("div");
@@ -90,11 +91,13 @@ input.min = 1;
 input.max = 100;
 
 // enlever des produits
-const retirer = document.creatElement("div");
-retirer.classList.add("cart__item__content__settings__delete");
-const oter = document.createElement("p");
-oter.textContent = "supprimer";
-retirer.appendChild("oter");
+function onRetireTrucs() {
+  const retirer = document.creatElement("div");
+  retirer.classList.add("cart__item__content__settings__delete");
+  const oter = document.createElement("p");
+  oter.textContent = "supprimer";
+  retirer.appendChild("oter");
+}
 
 // function panierRempli(produit) {
 //   const nbCanape = document.getElementById("totalQuantity");
@@ -102,7 +105,9 @@ retirer.appendChild("oter");
 //   const panierVide = produit[0];
 //   const panierPlein = panierVide.combienCanape * panierVide.price;
 // }
-function panierRempli(produit) {
+
+// prix total
+function panierRempli() {
   let total = 0;
   const factureTotal = document.getElementById("totalPrice");
   cart.forEach((produit) => {
