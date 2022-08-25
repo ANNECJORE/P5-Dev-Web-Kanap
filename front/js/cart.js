@@ -10,30 +10,33 @@ panierAfficher();
 panierTotal();
 // let recupProduit;
 // calcul et affichage du prix total
-function panierTotal() {
+async function panierTotal() {
   let prixTotal = 0;
   let qteTotal = 0;
   const factureTotal = document.getElementById("totalPrice");
   const articleTotal = document.getElementById("totalQuantity");
   contenuPanier.forEach((produit) => {
     let recupInfoProduit;
-    fetch("http://localhost:3000/api/products/" + produit.id)
-      .then((response) => response.json())
-      .then(newReponse => recupInfoProduit=newReponse) {
-        let recupProduit = await recupInfoProduit;
+    let fetchApi = async () => {
+      await fetch("http://localhost:3000/api/products/" + produit.id)
+        .then((response) => response.json())
+        .then((newReponse) => (recupInfoProduit = newReponse));
 
-        console.log(recupProduit);
-      });
-    let prixTotal = recupProduit.price * produit.quantite;
-    qteTotal += produit.quantite;
-    factureTotal.textContent = prixTotal;
-    articleTotal.textContent = qteTotal;
+      console.log(recupInfoProduit);
+
+      let prixTotal = recupInfoProduit.price * produit.quantite;
+      qteTotal += produit.quantite;
+      factureTotal.textContent = prixTotal;
+      articleTotal.textContent = qteTotal;
+    };
+    fetchApi();
   });
 }
 
 function panierAfficher() {
   const contenu = document.querySelector("#cart__items");
   contenuPanier.forEach((produit) => {
+    let recupProduit;
     // récupération des informations du produit dans l'API
     fetch("http://localhost:3000/api/products/" + produit.id)
       .then((response) => response.json())
