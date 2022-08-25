@@ -19,7 +19,7 @@ function panierTotal() {
     let recupInfoProduit;
     fetch("http://localhost:3000/api/products/" + produit.id)
       .then((response) => response.json())
-      .then(async function (recupInfoProduit) {
+      .then(newReponse => recupInfoProduit=newReponse) {
         let recupProduit = await recupInfoProduit;
 
         console.log(recupProduit);
