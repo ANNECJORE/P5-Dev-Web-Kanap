@@ -1,13 +1,13 @@
 let contenuPanier = JSON.parse(localStorage.getItem("selection"));
+
 //panier vide
 if (contenuPanier.length === 0) {
-  document.querySelector("h1").innerHTML += " est vide";
+  document.querySelector("h1").innerHTML += " Votre panier est vide";
 } else {
-  // document.querySelector("h1").innerHTML = "Votre panier ";
-
-  panierAfficher();
-  panierTotal();
+  document.querySelector("h1").innerHTML = " Excellent choix !";
 }
+panierAfficher();
+panierTotal();
 
 // calcul et affichage du prix total
 function panierTotal() {
@@ -19,12 +19,13 @@ function panierTotal() {
     fetch("http://localhost:3000/api/products/" + produit.id)
       .then((response) => response.json())
       .then(async function (recupInfoProduit) {
-        recupProduit = await recupInfoProduit;
+        let recupProduit = await recupInfoProduit;
+
         console.log(recupProduit);
       });
-    prixTotal += recupProduit.price * produit.quantite;
+    let prixTotal = recupProduit.price * produit.quantite;
     qteTotal += produit.quantite;
-    factureTotal.textContent = prixtotal;
+    factureTotal.textContent = prixTotal;
     articleTotal.textContent = qteTotal;
   });
 }
@@ -33,7 +34,7 @@ function panierAfficher() {
   const contenu = document.querySelector("#cart__items");
   contenuPanier.forEach((produit) => {
     let recupProduit;
-    // récupération des information du produit dans l'API
+    // récupération des informations du produit dans l'API
     fetch("http://localhost:3000/api/products/" + produit.id)
       .then((response) => response.json())
       .then(async function (recupInfoProduit) {
@@ -42,22 +43,24 @@ function panierAfficher() {
         console.log(recupProduit);
         // création de l'article qui contient toutes les informations du produit
         const article = document.createElement("article");
-        article.className = "cart__item";
-        article.dataset.id = produit.id;
+        article.className = ".cart__item";
+        article.dataset._id = produit._id;
         article.dataset.color = produit.couleur;
 
         // création de la div qui contient l'image
         const divImg = document.createElement("div");
         divImg.className.add("art__item__img");
+
         // création de l'image
         const image = document.createElement("img");
+
         image.src = recupProduit.imageUrl;
         image.alt = recupProduit.altTxt;
-
+        console.log(recupProduit.imageUrl);
         // création de la div qui contient les info produit
         const panierContenu = document.createElement("div");
-        panierContenu.className = "cart__item__content";
-
+        panierContenu.className.add("cart__item__content");
+        console.log("image canap :", recupProduit.imageUrl);
         // création de la div qui contient la description du produit
         const detailCanape = document.createElement("div");
         detailCanape.className.add("cart__item__content__description");
@@ -69,7 +72,7 @@ function panierAfficher() {
         couleurChoix.textContent = produit.couleur;
         const prix = document.createElement("p");
         prix.textContent = recupProduit.price + " €";
-
+        console.log("image canap :", recupProduit.imageUrl);
         // création de la div qui contient la quatité et les boutons d'action
         const divSetting = document.createElement("div");
         divSetting.className.add("cart__item__content__settings");
@@ -81,7 +84,7 @@ function panierAfficher() {
         totalChoix.textContent = "Qté : ";
         const input = document.createElement("input");
         input.type = "number";
-        input.classList.add("itemQuantity");
+        input.className.add("itemQuantity");
         input.name = "itemQuantity";
         input.value = produit.quantite;
         input.min = 1;
@@ -91,6 +94,12 @@ function panierAfficher() {
         retirer.className.add("cart__item__content__settings__delete");
         const oter = document.createElement("p");
         oter.textContent = "supprimer";
+        // oter.forEach((panier))=> {
+        //   panier.addEventlistener("click",()) => {
+
+        //   }
+        //   );
+        // };
 
         //Ajout des éléments dans l'article
         article.appendChild(divImg);
@@ -111,4 +120,24 @@ function panierAfficher() {
   });
 }
 
-function onRetireTrucs() {}
+// on supprime des trucs
+// function onRetireTrucs(produit, quantite) {
+//   let choixPanier = getItem();
+//   let calculModifPanier = choixPanier.find(
+//     produit.id  == produit.id,
+//     produit.couleur == produit.couleur, produit.quantite == produit.quantite
+//   );
+
+// if (calculModifPanier!= undefined) {
+//   calculModifPanier.quantite+=quantite;
+//   if(calculModifPanier.quantite<=0) {
+//     removeonRetireTruc(calculModifPanier);
+//   }
+//   saveChoix(choixPanier);
+// }
+
+// on supprime des  trucs 2
+const removechoixPanier = async (choixPanier) => {
+  await choixPanier;
+  let co;
+};
