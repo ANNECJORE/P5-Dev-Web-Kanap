@@ -8,7 +8,7 @@ if (contenuPanier.length === 0) {
 }
 panierAfficher();
 panierTotal();
-
+// let recupProduit;
 // calcul et affichage du prix total
 function panierTotal() {
   let prixTotal = 0;
@@ -16,6 +16,7 @@ function panierTotal() {
   const factureTotal = document.getElementById("totalPrice");
   const articleTotal = document.getElementById("totalQuantity");
   contenuPanier.forEach((produit) => {
+    let recupInfoProduit;
     fetch("http://localhost:3000/api/products/" + produit.id)
       .then((response) => response.json())
       .then(async function (recupInfoProduit) {
@@ -33,7 +34,6 @@ function panierTotal() {
 function panierAfficher() {
   const contenu = document.querySelector("#cart__items");
   contenuPanier.forEach((produit) => {
-    let recupProduit;
     // récupération des informations du produit dans l'API
     fetch("http://localhost:3000/api/products/" + produit.id)
       .then((response) => response.json())
@@ -49,7 +49,7 @@ function panierAfficher() {
 
         // création de la div qui contient l'image
         const divImg = document.createElement("div");
-        divImg.className.add("art__item__img");
+        divImg.classList.add("art__item__img");
 
         // création de l'image
         const image = document.createElement("img");
@@ -59,11 +59,11 @@ function panierAfficher() {
         console.log(recupProduit.imageUrl);
         // création de la div qui contient les info produit
         const panierContenu = document.createElement("div");
-        panierContenu.className.add("cart__item__content");
+        panierContenu.classList.add("cart__item__content");
         console.log("image canap :", recupProduit.imageUrl);
         // création de la div qui contient la description du produit
         const detailCanape = document.createElement("div");
-        detailCanape.className.add("cart__item__content__description");
+        detailCanape.classList.add("cart__item__content__description");
 
         // elément de la description produit
         const nomCanape = document.createElement("h2");
@@ -75,23 +75,23 @@ function panierAfficher() {
         console.log("image canap :", recupProduit.imageUrl);
         // création de la div qui contient la quatité et les boutons d'action
         const divSetting = document.createElement("div");
-        divSetting.className.add("cart__item__content__settings");
+        divSetting.classList.add("cart__item__content__settings");
 
         // création de la quatité
         const combienCanape = document.createElement("div");
-        combienCanape.className.add("cart__item__content__settings__quantity");
+        combienCanape.classList.add("cart__item__content__settings__quantity");
         const totalChoix = document.createElement("p");
         totalChoix.textContent = "Qté : ";
         const input = document.createElement("input");
         input.type = "number";
-        input.className.add("itemQuantity");
+        input.classList.add("itemQuantity");
         input.name = "itemQuantity";
         input.value = produit.quantite;
         input.min = 1;
         input.max = 100;
 
         const retirer = document.createElement("div");
-        retirer.className.add("cart__item__content__settings__delete");
+        retirer.classList.add("cart__item__content__settings__delete");
         const oter = document.createElement("p");
         oter.textContent = "supprimer";
         // oter.forEach((panier))=> {
