@@ -52,7 +52,7 @@ function panierAfficher() {
 
         // création de la div qui contient l'image
         const divImg = document.createElement("div");
-        divImg.classList.add("art__item__img");
+        divImg.classList.add("cart__item__img");
 
         // création de l'image
         const image = document.createElement("img");
@@ -97,6 +97,7 @@ function panierAfficher() {
         retirer.classList.add("cart__item__content__settings__delete");
         const oter = document.createElement("p");
         oter.textContent = "supprimer";
+
         // oter.forEach((panier))=> {
         //   panier.addEventlistener("click",()) => {
 
@@ -139,8 +140,8 @@ function panierAfficher() {
 //   saveChoix(choixPanier);
 // }
 
-// on supprime des  trucs 2
-const removechoixPanier = async (choixPanier) => {
-  await choixPanier;
-  let co;
-};
+// on supprime des trucs 2
+// const removechoixPanier = async (choixPanier) => {
+//   await choixPanier;
+// console.log("essai");
+// // };
