@@ -10,7 +10,7 @@ panierAfficher();
 panierTotal();
 // let recupProduit;
 // calcul et affichage du prix total
-async function panierTotal() {
+function panierTotal() {
   let prixTotal = 0;
   let qteTotal = 0;
   const factureTotal = document.getElementById("totalPrice");
@@ -24,8 +24,8 @@ async function panierTotal() {
 
       console.log(recupInfoProduit);
 
-      let prixTotal = recupInfoProduit.price * produit.quantite;
-      qteTotal += produit.quantite;
+      prixTotal += recupInfoProduit.price * produit.quantite;
+      qteTotal += parseInt(produit.quantite);
       factureTotal.textContent = prixTotal;
       articleTotal.textContent = qteTotal;
     };
@@ -46,8 +46,8 @@ function panierAfficher() {
         console.log(recupProduit);
         // création de l'article qui contient toutes les informations du produit
         const article = document.createElement("article");
-        article.className = ".cart__item";
-        article.dataset._id = produit._id;
+        article.className = "cart__item";
+        article.dataset.id = produit.id;
         article.dataset.color = produit.couleur;
 
         // création de la div qui contient l'image
@@ -87,6 +87,7 @@ function panierAfficher() {
         totalChoix.textContent = "Qté : ";
         const input = document.createElement("input");
         input.type = "number";
+
         input.classList.add("itemQuantity");
         input.name = "itemQuantity";
         input.value = produit.quantite;
@@ -98,12 +99,17 @@ function panierAfficher() {
         const oter = document.createElement("p");
         oter.textContent = "supprimer";
 
-        // oter.forEach((panier))=> {
-        //   panier.addEventlistener("click",()) => {
-
-        //   }
-        //   );
-        // };
+        oter.addEventListener("click", function () {
+          console.log(contenuPanier);
+          let produitTrouve = contenuPanier.find(
+            (element) =>
+              produit.id == element.id && produit.couleur == element.couleur
+          );
+          contenuPanier = contenuPanier.filter((prod) => prod != produitTrouve);
+          contenu.removeChild(article);
+          localStorage.setItem("selection", JSON.stringify(contenuPanier));
+          panierTotal();
+        });
 
         //Ajout des éléments dans l'article
         article.appendChild(divImg);
@@ -140,8 +146,13 @@ function panierAfficher() {
 //   saveChoix(choixPanier);
 // }
 
-// on supprime des trucs 2
+// // on supprime des trucs 2
 // const removechoixPanier = async (choixPanier) => {
 //   await choixPanier;
-// console.log("essai");
-// // };
+//   console.log("essai");
+//  retirer.forEach(produit) => addEventListener("click",()=> {
+// if {
+
+// // }
+// });
+// }
