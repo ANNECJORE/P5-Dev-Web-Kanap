@@ -59,7 +59,7 @@ function panierAfficher() {
 
         image.src = recupProduit.imageUrl;
         image.alt = recupProduit.altTxt;
-        console.log(recupProduit.imageUrl);
+        // console.log(recupProduit.imageUrl);
         // création de la div qui contient les info produit
         const panierContenu = document.createElement("div");
         panierContenu.classList.add("cart__item__content");
@@ -75,7 +75,7 @@ function panierAfficher() {
         couleurChoix.textContent = produit.couleur;
         const prix = document.createElement("p");
         prix.textContent = recupProduit.price + " €";
-        console.log("image canap :", recupProduit.imageUrl);
+        // console.log("image canap :", recupProduit.imageUrl);
         // création de la div qui contient la quatité et les boutons d'action
         const divSetting = document.createElement("div");
         divSetting.classList.add("cart__item__content__settings");
@@ -87,12 +87,23 @@ function panierAfficher() {
         totalChoix.textContent = "Qté : ";
         const input = document.createElement("input");
         input.type = "number";
-
-        input.classList.add("itemQuantity");
-        input.name = "itemQuantity";
-        input.value = produit.quantite;
         input.min = 1;
         input.max = 100;
+        input.classList.add("itemQuantity");
+
+        input.name = "itemQuantity";
+        input.value = produit.quantite;
+        // input.addEventListener('change', (event) =>{ changerTout(produit.id, input.value));
+        // quantite.appendChild(input);
+        //         function changerTout(id, choixNouveau) {
+        // const nouveauChange= cart.find(produit) =>{ produit.id===id;
+        // nouveauChange.quantite=  choixNouveau ;
+        // localStorage.setItem("selection", JSON.stringify(produit));
+        // }
+        // panierAfficher();
+        // panierTotal();
+
+        // });
 
         const retirer = document.createElement("div");
         retirer.classList.add("cart__item__content__settings__delete");
@@ -100,7 +111,7 @@ function panierAfficher() {
         oter.textContent = "supprimer";
 
         oter.addEventListener("click", function () {
-          console.log(contenuPanier);
+          // console.log(contenuPanier);
           let produitTrouve = contenuPanier.find(
             (element) =>
               produit.id == element.id && produit.couleur == element.couleur
